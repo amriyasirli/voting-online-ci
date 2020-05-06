@@ -12,7 +12,7 @@ class Tema extends CI_Controller {
         if($data['role_id'] != 1) {
             redirect('/Auth_Admin/Beranda');
         }
-        date_default_timezone_set("Asia/Makassar");
+        date_default_timezone_set("Asia/Jakarta");
     }
 
     public function index() {
@@ -41,7 +41,7 @@ class Tema extends CI_Controller {
                 $this->load->view('template/footer');
             } else {
                 $config['upload_path'] = './assets/img';
-                $config['allowed_types'] = 'jpg|png|JPG|PNG';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['max_size'] = '4096';
 
                 $this->load->library('upload', $config);
@@ -56,6 +56,9 @@ class Tema extends CI_Controller {
                     $obj = ['tema_nama' => $nama, 'tema_batas' => $convert, 'tema_logo' => $image, 'tema_is_active' => "0"];
                     $this->TemaModel->insertTema($obj);
                     redirect('/Auth_Admin/Tema', 'refresh');
+                } else {
+
+                    echo $this->upload->display_errors();
                 }
             }
         } else {
@@ -109,7 +112,7 @@ class Tema extends CI_Controller {
                     unlink('./assets/img/'.$theme['tema_logo']);
 
                     $config['upload_path'] = './assets/img';
-                    $config['allowed_types'] = 'jpg|png|JPG|PNG';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
                     $config['max_size'] = '4096';
 
                     $this->load->library('upload', $config);
@@ -122,6 +125,9 @@ class Tema extends CI_Controller {
                         $obj = ['tema_nama' => $this->input->post('nama'), 'tema_batas' => $convert, 'tema_logo' => $image];
                         $this->TemaModel->updateTema($id, $obj);
                         redirect('/Auth_Admin/Tema', 'refresh');
+                    }else {
+
+                        echo $this->upload->display_errors();
                     }
                 }
             }
