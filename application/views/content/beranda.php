@@ -144,13 +144,10 @@
                   <!-- /.col -->
                   <div class="col-md-4">
 
-
+                  
                   <!-- Perhitungan Persentasi Total Suara -->
                 <?php
-                  $jml =$this->db->get('tb_pemilih')->num_rows();
-                  $memilih =$hadir['hadir'];
-
-                  $persen=round($memilih/$jml *100,1);
+                  
                 ?>
 
                   <div class="card">
@@ -165,7 +162,17 @@
                         
                         <div class="col-lg-12 text-center mb-4">
                         <span class="float text-red">
+                        <?php if($tdkhadir['tdkhadir'] == 0){ ?>
+                    
+                          <h1><strong>Pemilih Belum Ada</strong> </h1>
+                        <?php } else{ 
+                          $jml =$this->db->get('tb_pemilih')->num_rows();
+                          $memilih =$hadir['hadir'];
+        
+                          $persen=round($memilih/$jml *100,1);
+                          ?>
                           <h1><strong><?= $persen?></strong> %</h1>
+                        <?php } ?>
                           </span>
                         </div>
                         
