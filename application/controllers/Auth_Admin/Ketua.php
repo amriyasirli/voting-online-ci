@@ -49,7 +49,7 @@ class Ketua extends CI_Controller {
                 $this->load->view('template/footer');
             } else {
                 $config['upload_path'] = './assets/img';
-                $config['allowed_types'] = 'jpg|png|JPG|PNG';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
                 $config['max_size'] = '4096';
 
                 $this->load->library('upload', $config);
@@ -79,6 +79,9 @@ class Ketua extends CI_Controller {
 
                     $this->KetuaModel->insertKetua($object);
                     redirect('/Auth_Admin/Ketua','refresh');
+                }else {
+
+                    echo $this->upload->display_errors();
                 }
             }
         } else {
@@ -157,7 +160,7 @@ class Ketua extends CI_Controller {
                     unlink('./assets/img/'.$getKetua->calon_ketua_foto);
 
                     $config['upload_path'] = './assets/img';
-                    $config['allowed_types'] = 'jpg|png|JPG|PNG';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
                     $config['max_size'] = '4096';
 
                     $this->load->library('upload', $config);
@@ -178,6 +181,9 @@ class Ketua extends CI_Controller {
                         );
                         $this->KetuaModel->updateKetua($id, $object2);
                         redirect('/Auth_Admin/Ketua','refresh');
+                    }else {
+
+                        echo $this->upload->display_errors();
                     }
                 }
             }
